@@ -1,0 +1,567 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language french
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip smallskip
+\quotes_language swedish
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Méthode de Boltzmann sur réseau pour la mécanique des fluides
+\end_layout
+
+\begin_layout Author
+Lucas Helluy, Arnaud Frering
+\end_layout
+
+\begin_layout Section
+Équations de la mécanique des fluides
+\end_layout
+
+\begin_layout Standard
+Nous considérons un fluide (liquide ou gaz) compressible s'écoulant dans
+ un milieu 
+\begin_inset Formula $d-$
+\end_inset
+
+dimensionnel (
+\begin_inset Formula $d=2$
+\end_inset
+
+ ou 
+\begin_inset Formula $3$
+\end_inset
+
+).
+ Dans ce travail, nous ne considérerons que le cas 
+\begin_inset Formula $d=2$
+\end_inset
+
+, mais les méthodes présentées sont généralisables au cas 
+\begin_inset Formula $d=3$
+\end_inset
+
+.
+ Les coordonnées spatiales sont notées
+\begin_inset Formula 
+\[
+x=\left(\begin{array}{c}
+x_{1}\\
+x_{2}
+\end{array}\right)\in\mathbb{R}^{2}
+\]
+
+\end_inset
+
+et la variable temporelle 
+\begin_inset Formula $t\in\mathbb{R}_{+}$
+\end_inset
+
+.
+ Le fluide est caractérisé par sa masse volumique 
+\begin_inset Formula $\rho(x,t)$
+\end_inset
+
+ et sa vitesse
+\begin_inset Formula 
+\[
+u(x,t)=\left(\begin{array}{c}
+u_{1}(x,t)\\
+u_{2}(x,t)
+\end{array}\right)\in\mathbb{R}^{2}.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Pour établir les équations satisfaites par 
+\begin_inset Formula $\rho$
+\end_inset
+
+ et 
+\begin_inset Formula $u$
+\end_inset
+
+ nous considérons un domaine 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ fixe du plan.
+ Sa frontière est notée 
+\begin_inset Formula $\partial\Omega$
+\end_inset
+
+, et le vecteur normal unitaire sur 
+\begin_inset Formula $\partial\Omega$
+\end_inset
+
+ sortant à 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ est noté 
+\begin_inset Formula $n$
+\end_inset
+
+.
+ La masse de fluide contenue dans 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ est donnée par
+\begin_inset Formula 
+\[
+M(t)=\int\int_{\Omega}\rho(x,t)dx_{1}dx_{2}.
+\]
+
+\end_inset
+
+En abrégé, nous noterons aussi 
+\begin_inset Formula 
+\[
+M=\int_{\Omega}\rho.
+\]
+
+\end_inset
+
+La variation de masse dans 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ s'écrit, en dérivant sous l'intégrale
+\begin_inset Formula 
+\[
+\frac{dM}{dt}=\frac{d}{dt}\int_{\Omega}\rho=\int_{\Omega}\frac{\partial\rho}{\partial t}.
+\]
+
+\end_inset
+
+La variation de masse dans 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ est aussi égale au flux de masse à travers 
+\begin_inset Formula $\partial\Omega$
+\end_inset
+
+ (
+\begin_inset Formula $ds$
+\end_inset
+
+ est l'élément de surface sur 
+\begin_inset Formula $\partial\Omega$
+\end_inset
+
+)
+\begin_inset Formula 
+\[
+\frac{dM}{dt}=-\int_{\partial\Omega}\rho u\cdot nds.
+\]
+
+\end_inset
+
+Nous appliquons le théorème de Green-Ostrogradski
+\begin_inset Formula 
+\[
+\int_{\partial\Omega}\rho u\cdot nds=\int_{\Omega}\nabla\cdot(\rho u).
+\]
+
+\end_inset
+
+Nous en déduisons
+\begin_inset Formula 
+\[
+\int_{\Omega}\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho u)=0.
+\]
+
+\end_inset
+
+Cette égalité est valable pour n'importe quel domaine 
+\begin_inset Formula $\Omega$
+\end_inset
+
+, donc 
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho u)=0.\label{eq:conservation_masse}
+\end{equation}
+
+\end_inset
+
+C'est l'équation de conservation de la masse.
+\end_layout
+
+\begin_layout Standard
+Nous allons maintenant établir l'équation de quantité de mouvement.
+ La quantité de mouvement contenue dans le domaine 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ est
+\begin_inset Formula 
+\[
+\frac{d\overrightarrow{Q}}{dt}=\frac{d}{dt}\int_{\Omega}\rho u=\int_{\Omega}\frac{\partial}{\partial t}(\rho u).
+\]
+
+\end_inset
+
+D'autre part cette variation de quantité de mouvement est égale à la puissance
+ des forces exercées sur 
+\begin_inset Formula $\Omega$
+\end_inset
+
+ plus le flux de quantité de mouvement à travers 
+\begin_inset Formula $\partial\Omega$
+\end_inset
+
+.
+ Pour simplifier, nous supposons que le fluide n'est soumis qu'à des forces
+ de pression qui agissent sur le bord de 
+\begin_inset Formula $\Omega$
+\end_inset
+
+.
+ En notant 
+\begin_inset Formula $p$
+\end_inset
+
+ la pression, nous obtenons
+\begin_inset Formula 
+\[
+\frac{dQ}{dt}=-\int_{\partial\Omega}pnds-\int_{\partial\Omega}\rho u(u\cdot n)ds.
+\]
+
+\end_inset
+
+Nous appliquons à nouveau la formule de Green-Ostrogradski
+\begin_inset Formula 
+\[
+\int_{\Omega}\left(\frac{\partial}{\partial t}(\rho u)+\nabla\cdot(\rho uu^{T})+\nabla p\right)=0.
+\]
+
+\end_inset
+
+Nous en déduisons l'équation de bilan de quantité de mouvement
+\begin_inset Formula 
+\begin{equation}
+\frac{\partial}{\partial t}(\rho u)+\nabla\cdot(\rho uu^{T})+\nabla p=0.\label{eq:conservation_qdm}
+\end{equation}
+
+\end_inset
+
+Les équations (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:conservation_masse"
+
+\end_inset
+
+) et (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:conservation_qdm"
+
+\end_inset
+
+) constituent les équations d'Euler de la mécanique des fluides compressibles.
+ Il y a 3 équations et 4 inconnues 
+\begin_inset Formula $\rho$
+\end_inset
+
+, 
+\begin_inset Formula $u_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $u_{2}$
+\end_inset
+
+ et la pression 
+\begin_inset Formula $p$
+\end_inset
+
+.
+ Pour pouvoir résoudre ces équations il faut ajouter une loi de fermeture.
+ Pour simplifier, nous pouvons par exemple supposer que la pression est
+ une fonction linéaire de la masse volumique
+\begin_inset Formula 
+\begin{equation}
+p=c^{2}\rho\label{eq:loi_pression}
+\end{equation}
+
+\end_inset
+
+(c'est le cas si le fluide est isotherme).
+ La constante 
+\begin_inset Formula $c$
+\end_inset
+
+ est la vitesse du son dans le fluide.
+\end_layout
+
+\begin_layout Section
+Méthode de Boltzmann sur réseau
+\end_layout
+
+\begin_layout Standard
+Les équations (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:conservation_masse"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:conservation_qdm"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:loi_pression"
+
+\end_inset
+
+) sont des équations non-linéaires difficiles à résoudre.
+ Sauf dans certains cas particuliers, il est impossible de calculer les
+ solutions aux moyens de formules analytiques.
+ Il faut utiliser une méthode numérique.
+ La méthode de Boltzmann sur réseau (
+\begin_inset Quotes sld
+\end_inset
+
+lattice Boltzmann
+\begin_inset Quotes srd
+\end_inset
+
+ en anglais) est une méthode numérique extrêmement simple pour simuler sur
+ ordinateur un écoulement de fluide.
+ De très nombreux travaux portent sur cette méthode.
+ Nous pouvons par exemple citer 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dubois2007introduction"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Le principe de la méthode de Boltzmann sur réseau est de faire une analogie
+ avec la théorie cinétique des gaz.
+ En fait un fluide est composé d'un très grand nombre de particules qui
+ se déplacent avec leur propre vitesse microscopique 
+\begin_inset Formula $v$
+\end_inset
+
+ et qui collisionnent à certains moments.
+ En théorie cinétique, il faut considérer la fonction de distribution des
+ particules
+\begin_inset Formula 
+\[
+f(x,v,t)
+\]
+
+\end_inset
+
+ qui comptent les particules qui au point 
+\begin_inset Formula $x$
+\end_inset
+
+ et à l'instant 
+\begin_inset Formula $t$
+\end_inset
+
+ ont une vitesse 
+\begin_inset Formula $v$
+\end_inset
+
+.
+ La masse volumique est donnée par
+\begin_inset Formula 
+\[
+\rho(x,t)=\int_{v}f(x,v,t)dv_{1}dv_{2}
+\]
+
+\end_inset
+
+et la quantité de mouvement par
+\begin_inset Formula 
+\[
+\rho(x,t)u(x,t)=\int_{v}f(x,v,t)vdv_{1}dv_{2}.
+\]
+
+\end_inset
+
+Sans collisions les particules se déplaceraient librement
+\begin_inset Formula 
+\[
+\partial_{t}f+v\cdot\nabla f=0.
+\]
+
+\end_inset
+
+Les collisions vont avoir tendance à ramener la fonction de distribution
+ vers une distribution d'équilibre 
+\begin_inset Formula $M_{\rho,u}(v)$
+\end_inset
+
+.
+ Nous obtenons ainsi l'équation de Boltzmann
+\begin_inset Formula 
+\begin{equation}
+\partial_{t}f+v\cdot\nabla f=\frac{1}{\tau}(M_{\rho,u}-f),\label{eq:bgk}
+\end{equation}
+
+\end_inset
+
+où 
+\begin_inset Formula $\tau$
+\end_inset
+
+ est un temps caractéristique (en général petit) de retour vers l'équilibre.
+ Le principe de conservation de la masse et de la quantité de mouvement
+ impliquent
+\begin_inset Formula 
+\[
+\int_{v}\left(M_{\rho,u}-f\right)=0,\text{ ou }\int_{v}M_{\rho,u}(v)dv_{1}dv_{2}=\rho
+\]
+
+\end_inset
+
+et
+\begin_inset Formula 
+\[
+\int_{v}\left(M_{\rho,u}-f\right)v=0,\text{ ou }\int_{v}M_{\rho,u}(v)vdv_{1}dv_{2}=\rho u.
+\]
+
+\end_inset
+
+On constate que si 
+\begin_inset Formula $\tau$
+\end_inset
+
+ est très petit nous aurons toujours
+\begin_inset Formula 
+\[
+f(x,v,t)\simeq M_{\rho(x,t),u(x,t)}(v).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nous retrouvons donc les équations de la mécanique des fluides à un ordre
+ 
+\begin_inset Formula $O(\tau)$
+\end_inset
+
+ si la fonction d'équilibre vérifie
+\begin_inset Formula 
+\[
+\int_{v}M_{\rho,u}(v)vv^{T}=\rho uu^{T}+pI.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Programmation de la méthode Boltzmann sur réseau en C
+\end_layout
+
+\begin_layout Section
+Optimisation de la méthode avec PyOpenCL
+\end_layout
+
+\begin_layout Section
+Application: allées de von Karmann
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintAll"
+bibfiles "lbm"
+options "alpha"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
