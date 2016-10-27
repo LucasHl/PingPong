@@ -874,8 +874,28 @@ fn[k][i][j]=M_{\rho,u}(\xi^{k}).
 
 \end_layout
 
+\begin_layout Standard
+Détails: bords du domaine ? 
+\begin_inset Quotes sld
+\end_inset
+
+bounce-back
+\begin_inset Quotes srd
+\end_inset
+
+ ? collisions d'ordre 2 
+\begin_inset Quotes sld
+\end_inset
+
+Crank-Nicolson
+\begin_inset Quotes srd
+\end_inset
+
+ ?
+\end_layout
+
 \begin_layout Section
-Optimisation de la méthode avec PyOpenCL
+Optimisation de la méthode avec PyOpenCL (ou OpenMP)
 \end_layout
 
 \begin_layout Section
