@@ -493,17 +493,17 @@ où
  Le principe de conservation de la masse et de la quantité de mouvement
  impliquent
 \begin_inset Formula 
-\[
-\int_{v}\left(M_{\rho,u}-f\right)=0,\text{ ou }\int_{v}M_{\rho,u}(v)dv_{1}dv_{2}=\rho
-\]
+\begin{equation}
+\int_{v}\left(M_{\rho,u}-f\right)=0,\text{ ou }\int_{v}M_{\rho,u}(v)dv_{1}dv_{2}=\rho\label{eq:maxwell_rho}
+\end{equation}
 
 \end_inset
 
 et
 \begin_inset Formula 
-\[
-\int_{v}\left(M_{\rho,u}-f\right)v=0,\text{ ou }\int_{v}M_{\rho,u}(v)vdv_{1}dv_{2}=\rho u.
-\]
+\begin{equation}
+\int_{v}\left(M_{\rho,u}-f\right)v=0,\text{ ou }\int_{v}M_{\rho,u}(v)vdv_{1}dv_{2}=\rho u.\label{eq:maxwell_rhou}
+\end{equation}
 
 \end_inset
 
@@ -519,19 +519,232 @@ f(x,v,t)\simeq M_{\rho(x,t),u(x,t)}(v).
 
 \end_inset
 
+Par ailleurs, si nous multiplions l'équation (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:bgk"
+
+\end_inset
+
+) par le vecteur 
+\begin_inset Formula $(1,v_{1},v_{2})^{T}$
+\end_inset
+
+ et intégrons par rapport à 
+\begin_inset Formula $v$
+\end_inset
+
+ nous obtenons
+\begin_inset Formula 
+\[
+\partial_{t}\left(\begin{array}{c}
+\rho\\
+\rho u
+\end{array}\right)+\nabla\cdot\left(\begin{array}{c}
+\rho u\\
+\int_{v}vv^{T}M_{\rho,u}
+\end{array}\right)=O(\tau).
+\]
+
+\end_inset
+
+Par conséquent, à l'ordre 1 en 
+\begin_inset Formula $\tau$
+\end_inset
+
+ nous retrouvons les équations d'Euler, à condition que
+\begin_inset Formula 
+\begin{equation}
+\int_{v}vv^{T}M_{\rho,u}=\rho uu^{T}+pI.\label{eq:maxwell_force}
+\end{equation}
+
+\end_inset
+
+Pour l'instant, dans cette présentation, la vitesse microscopique 
+\begin_inset Formula $v$
+\end_inset
+
+ est dans 
+\begin_inset Formula $\mathbb{R}^{d}$
+\end_inset
+
+.
+ L'équation de Boltzmann est plus simple que l'équation d'Euler.
+ Mais il est difficile de la résoudre numériquement car elle est écrite
+ dans un espace de dimension 
+\begin_inset Formula $2\times d$
+\end_inset
+
+.
+ La méthode de Boltzmann sur réseau consiste à supposer que 
+\begin_inset Formula $v$
+\end_inset
+
+ est dans un ensemble fini de 
+\begin_inset Formula $l$
+\end_inset
+
+ vitesses 
+\begin_inset Formula $V$
+\end_inset
+
+, le plus petit possible
+\begin_inset Formula 
+\[
+V=\left\{ \xi^{0},\ldots,\xi^{l-1}\right\} .
+\]
+
+\end_inset
+
+Pour la fonction de distribution nous employons désormais la notation
+\begin_inset Formula 
+\[
+f(x,\xi^{i},t)=f^{i}(x,t),\quad i=0\ldots l-1,
+\]
+
+\end_inset
+
+et nous remplaçons les intégrales en 
+\begin_inset Formula $v$
+\end_inset
+
+ par une somme sur les vitesses discrètes
+\begin_inset Formula 
+\begin{eqnarray*}
+\int_{v}f(x,v,t)dv_{1}dv_{2} & = & \sum_{i=\text{0}}^{l-1}\omega_{i}f^{i}(x,t),\\
+\int_{v}f(x,v,t)vdv_{1}dv_{2} & = & \sum_{i=\text{0}}^{l-1}\omega_{i}f^{i}(x,t)\xi^{i},
+\end{eqnarray*}
+
+\end_inset
+
+où les 
+\begin_inset Formula $\omega_{i}$
+\end_inset
+
+ sont appelés les poids d'intégration discrète.
+\end_layout
+
+\begin_layout Standard
+Il s'agit maintenant de trouver une fonction de distribution d'équilibre
+ 
+\begin_inset Formula $M_{\rho,u}(\xi^{i})$
+\end_inset
+
+ vérifiant les conditions (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:maxwell_rho"
+
+\end_inset
+
+), (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:maxwell_rhou"
+
+\end_inset
+
+) et (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:maxwell_force"
+
+\end_inset
+
+).
+ Nous noterons aussi
+\begin_inset Formula 
+\[
+M_{\rho,u}^{i}=M_{\rho,u}(\xi^{i}),\quad i=0\ldots l-1.
+\]
+
+\end_inset
+
+Un modèle de réseau très courament utilisé est le modèle dit D2Q9 (2dimensions
+ et 
+\begin_inset Formula $l=9$
+\end_inset
+
+ vitesses de réseau) défini par
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\xi=\sqrt{3}c\left[\left(\begin{array}{c}
+0\\
+0
+\end{array}\right),\left(\begin{array}{c}
+1\\
+0
+\end{array}\right),\left(\begin{array}{c}
+0\\
+1
+\end{array}\right),\left(\begin{array}{c}
+-1\\
+0
+\end{array}\right),\left(\begin{array}{c}
+0\\
+-1
+\end{array}\right),\left(\begin{array}{c}
+1\\
+1
+\end{array}\right),\left(\begin{array}{c}
+-1\\
+1
+\end{array}\right),\left(\begin{array}{c}
+-1\\
+-1
+\end{array}\right),\left(\begin{array}{c}
+1\\
+-1
+\end{array}\right)\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\omega=\left[\frac{4}{9},\frac{1}{9},\frac{1}{9},\frac{1}{9},\frac{1}{9},\frac{1}{36},\frac{1}{36},\frac{1}{36},\frac{1}{36}\right],
+\]
+
+\end_inset
+
 
 \end_layout
 
 \begin_layout Standard
-Nous retrouvons donc les équations de la mécanique des fluides à un ordre
- 
-\begin_inset Formula $O(\tau)$
-\end_inset
-
- si la fonction d'équilibre vérifie
 \begin_inset Formula 
 \[
-\int_{v}M_{\rho,u}(v)vv^{T}=\rho uu^{T}+pI.
+M_{\rho,u}^{i}=\rho\left(1+\frac{\xi^{i}\cdot u}{c^{2}}+\frac{(\xi^{i}\cdot u)^{2}}{c^{4}}-\frac{u\cdot u}{2c^{2}}\right).
+\]
+
+\end_inset
+
+Nous vérifions que
+\begin_inset Formula 
+\[
+\sum_{i}\omega_{i}M_{\rho,u}^{i}=\rho,
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\sum_{i}\omega_{i}M_{\rho,u}^{i}\xi^{i}=\rho u
+\]
+
+\end_inset
+
+et
+\begin_inset Formula 
+\[
+\sum_{i}\omega_{i}M_{\rho,u}^{i}\xi^{i}\left(\xi^{i}\right)^{T}=\left(\begin{array}{cc}
+\rho u_{1}^{2}+c^{2}\rho & \rho u_{1}u_{2}\\
+\rho u_{1}u_{2} & \rho u_{2}^{2}+c^{2}\rho
+\end{array}\right).
 \]
 
 \end_inset
@@ -541,6 +754,124 @@ Nous retrouvons donc les équations de la mécanique des fluides à un ordre
 
 \begin_layout Section
 Programmation de la méthode Boltzmann sur réseau en C
+\end_layout
+
+\begin_layout Standard
+Pour discrétiser numériquement l'équation de Boltzmann sur réseau, nous
+ supposons d'abord que le domaine de calcul est un rectangle 
+\begin_inset Formula $\Omega=]0,L1[\times]0,L2[$
+\end_inset
+
+.
+ Ce domaine est discrétisé par une grille de pas 
+\begin_inset Formula $\Delta x$
+\end_inset
+
+ tel que
+\begin_inset Formula 
+\[
+L1=N1\times\Delta x,\quad L2=N2\times\Delta x.
+\]
+
+\end_inset
+
+Les points de grille sont définis par
+\begin_inset Formula 
+\[
+x^{i,j}=\left(\begin{array}{c}
+i\Delta x\\
+j\Delta x
+\end{array}\right),\quad i=0\ldots N1-1,\quad j=0\ldots N2-1.
+\]
+
+\end_inset
+
+La fonction de distribution est définie en chacun de ces points de grille
+ par une approximation aux instants 
+\begin_inset Formula $t_{n}=n\Delta t$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+f^{k}(x^{i,j},n\Delta t)\simeq fn[k][i][j]\quad k=0\ldots l-1,\quad i=0\ldots N1-1,\quad j=0\ldots N2-1.
+\]
+
+\end_inset
+
+Pour avancer du temps 
+\begin_inset Formula $t_{n}=n\Delta t$
+\end_inset
+
+ au temps 
+\begin_inset Formula $t_{n+1}=t_{n}+\Delta t$
+\end_inset
+
+ nous discrétisons séparement l'étape de transport
+\begin_inset Formula 
+\[
+\partial_{t}f+v\cdot\nabla f=0,
+\]
+
+\end_inset
+
+et l'étape de collision
+\begin_inset Formula 
+\[
+\partial_{t}f=\frac{1}{\tau}(M_{\rho,u}-f).
+\]
+
+\end_inset
+
+L'étape de transport s'écrit très simplement
+\begin_inset Formula 
+\[
+f(x^{i,j},\xi^{k},t_{n+1})=f(x^{i,j}-\Delta t\xi^{k},\xi^{k},t_{n}).
+\]
+
+\end_inset
+
+Si 
+\begin_inset Formula $\sqrt{3}c\Delta t=\Delta x$
+\end_inset
+
+, cette formule consiste simplement en des recopies avec décalages de la
+ fonction de distribution du pas de temps précédent.
+ À la fin de l'étape de transport, en chaque point de la grille, la fonction
+ de distribution n'est plus à l'équilibre
+\begin_inset Formula 
+\[
+f(x^{i,j},\xi^{k},t_{n+1})\neq M_{\rho,u}(\xi^{k}).
+\]
+
+\end_inset
+
+L'étape de collision consiste alors à ramener en 
+\begin_inset Formula $x^{i,j}$
+\end_inset
+
+ la fonction de distribution vers l'équilibre.
+ Plus précisément, pour tout point de grille 
+\begin_inset Formula $(i,j)$
+\end_inset
+
+ nous calculons
+\begin_inset Formula 
+\[
+\rho=\sum_{k=0}^{l-1}\omega_{k}fn[k][i][j],\quad u=\frac{1}{\rho}\sum_{k=0}^{l-1}\omega_{k}fn[k][i][j]\xi^{k},
+\]
+
+\end_inset
+
+puis nous effectuons
+\begin_inset Formula 
+\[
+fn[k][i][j]=M_{\rho,u}(\xi^{k}).
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
