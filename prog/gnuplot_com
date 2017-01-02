@@ -1,0 +1,4 @@
+set pm3d map
+set pm3d interpolate 2,2
+splot 'lbm_rho.dat' matrix
+pause -1
